@@ -1,7 +1,9 @@
 package stepDefinitions;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -17,19 +19,18 @@ public class restApiStepDefinition implements En
 	Properties property = new Properties();
 	Response response;
 	String responseBody;
+	String propertyPath = System.getProperty("user.dir") + File.separator + "src\\test\\resource\\config.properties";
 	
 	public restApiStepDefinition() {
 
 		Given("user has the api {string}", (String basePath) -> {
-			String propertyPath = System.getProperty("user.dir") + File.separator + "src\\test\\resource\\config.properties";
+//			String propertyPath = System.getProperty("user.dir") + File.separator + "src\\test\\resource\\config.properties";
 			property = prop.getPropertyFileLoad(propertyPath);
 			restUtil.setBaseURI(property.getProperty("baseURI"));
 			restUtil.setBasePath(basePath);
-			
-//			System.out.println(propp.getProperty("baseURI"));
 		});
 
-		When("user hit the api", () -> {
+		When("user hit the post api", () -> {
 			Map<String, String> payload  = new HashMap<String, String>();
 			payload = restUtil.postPayload("RestAssuredAssignment", "1111", "24");
 			response = restUtil.postApiResponse(payload);
@@ -47,6 +48,16 @@ public class restApiStepDefinition implements En
 			System.out.println("Message value: " + dataId);
 		});
 
+		When("user hit the get api", () -> {
+			response = restUtil.getApiResponse();
+		});
+		
+		Then("verify no duplicate id is available", () -> {
+			responseBody = restUtil.getResponseBodyAsString(response);
+			System.out.println("Response: "+responseBody);
+			List<String> jsonResponse = new ArrayList<String>();
+			jsonResponse = restUtil.getStringListReponseFromReponse(responseBody, "data.id");
+		});
 	}
 
 }

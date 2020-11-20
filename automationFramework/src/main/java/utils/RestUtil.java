@@ -1,6 +1,8 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.restassured.RestAssured;
@@ -43,6 +45,14 @@ public class RestUtil {
 		String id = jsonPath.getString(jsonStrPath);
 		System.out.println("Message value: " + id);
 		return id;
+	}
+	
+	public List<String> getStringListReponseFromReponse(String responseBody, String jsonStrPath) {
+		List<String> jsonResponse = new ArrayList<String>();
+		JsonPath jsonPath = new JsonPath(responseBody);
+		jsonResponse = jsonPath.getList(jsonStrPath);
+		System.out.println("jsonResponse value: " + jsonResponse);
+		return jsonResponse;
 	}
 	
 	public Map<String, String> postPayload(String name, String salary, String age)
