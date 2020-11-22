@@ -3,14 +3,17 @@ package stepDefinitions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import io.cucumber.java8.En;
 import io.restassured.response.Response;
 import utils.PropertyUtil;
 import utils.RestUtil;
+import utils.Util;
 
 public class restApiStepDefinition implements En
 {
@@ -57,7 +60,20 @@ public class restApiStepDefinition implements En
 			System.out.println("Response: "+responseBody);
 			List<String> jsonResponse = new ArrayList<String>();
 			jsonResponse = restUtil.getStringListReponseFromReponse(responseBody, "data.id");
+			Util.verifyDuplicateList(jsonResponse);
 		});
+		
+		Then("print id and name on console", () -> {
+			responseBody = restUtil.getResponseBodyAsString(response);
+			List<String> employeeId = new ArrayList<String>();
+			List<String> employeeName = new ArrayList<String>();
+			employeeId = restUtil.getStringListReponseFromReponse(responseBody, "data.id");
+			employeeName = restUtil.getStringListReponseFromReponse(responseBody, "data.employee_name");
+			System.out.println("\n*********** Employee Details ***********");
+			for (int i=0; i<employeeId.size();i++)
+				System.out.println(employeeId.get(i) + " : " + employeeName.get(i));
+		});
+		
 	}
 
 }
