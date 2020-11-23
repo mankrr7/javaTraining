@@ -19,7 +19,7 @@ public class seleniumAssignmentStepDefinition implements En {
 		
 		Given("user has the website access {string}", (String strUrl) -> {
 			url = strUrl;
-			driver = browserObj.driverSetup();
+			driver = browserObj.driverSetup("ie");
 			seleniumPageObj = new SeleniumPage(driver);
 			registerUserPageObj = new RegisterUserPage(driver);
 		});
@@ -44,7 +44,6 @@ public class seleniumAssignmentStepDefinition implements En {
 		When("click on proceed button", () -> {
 			Thread.sleep(2000);
 			browserObj.clickElement(driver, seleniumPageObj.proceedBtn);
-			
 		});
 
 		When("compare summary amount with initial amount", () -> {
@@ -57,19 +56,7 @@ public class seleniumAssignmentStepDefinition implements En {
 		});
 
 		When("purchase the product", () -> {
-			
-			browserObj.scrollToElement(driver, seleniumPageObj.proceedBtnToConfirmAddress);
-			browserObj.clickElement(driver, seleniumPageObj.proceedBtnToConfirmAddress);
-			browserObj.scrollToElement(driver, seleniumPageObj.termOfService);
-			browserObj.clickElement(driver, seleniumPageObj.termOfService);
-			browserObj.scrollToElement(driver, seleniumPageObj.proceedBtnToProcessCarriers);
-			browserObj.clickElement(driver, seleniumPageObj.proceedBtnToProcessCarriers);
-			browserObj.scrollToElement(driver, seleniumPageObj.paymentMode);
-			browserObj.clickElement(driver, seleniumPageObj.paymentMode);
-			browserObj.scrollToElement(driver, seleniumPageObj.confirmOrderBtn);
-			browserObj.clickElement(driver, seleniumPageObj.confirmOrderBtn);
-			
-			Thread.sleep(2000);
+			seleniumPageObj.purchaseProduct(driver);
 		});
 
 		Then("user validates the product is purchased successfully", () -> {

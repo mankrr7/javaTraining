@@ -9,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
+import utils.BrowserSetup;
+
 public class SeleniumPage {
 	
 	@FindBy(id="search_query_top")
@@ -50,8 +52,22 @@ public class SeleniumPage {
 	@FindBy(css ="button[class='button btn btn-default button-medium']")
 	public WebElement confirmOrderBtn;
 	
+	BrowserSetup browserObj = new BrowserSetup();
 	
 	public SeleniumPage(WebDriver driver) {
 		PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
+	}
+	
+	public void purchaseProduct(WebDriver driver) {
+		browserObj.scrollToElement(driver, this.proceedBtnToConfirmAddress);
+		browserObj.clickElement(driver, this.proceedBtnToConfirmAddress);
+		browserObj.scrollToElement(driver, this.termOfService);
+		browserObj.clickElement(driver, this.termOfService);
+		browserObj.scrollToElement(driver, this.proceedBtnToProcessCarriers);
+		browserObj.clickElement(driver, this.proceedBtnToProcessCarriers);
+		browserObj.scrollToElement(driver, this.paymentMode);
+		browserObj.clickElement(driver, this.paymentMode);
+		browserObj.scrollToElement(driver, this.confirmOrderBtn);
+		browserObj.clickElement(driver, this.confirmOrderBtn);
 	}
 }
