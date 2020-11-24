@@ -1,5 +1,7 @@
 package stepDefinitions;
 
+import static org.junit.Assert.assertEquals;
+
 import org.openqa.selenium.WebDriver;
 
 import io.cucumber.java8.En;
@@ -10,16 +12,20 @@ import utils.BrowserSetup;
 public class seleniumAssignmentStepDefinition implements En {
 
 	String url;
-	WebDriver driver;
+	WebDriver driver = null;
 	BrowserSetup browserObj = new BrowserSetup();
 	SeleniumPage seleniumPageObj;
 	RegisterUserPage registerUserPageObj;
-	
-	public seleniumAssignmentStepDefinition(){
-		
-		Given("user has the website access {string}", (String strUrl) -> {
+	String initialProductAmt = "";
+	String summaryProductAmt = "";
+	String finalOrderAmt = "";
+	String orderSuccessMsg = "";
+
+	public seleniumAssignmentStepDefinition() {
+
+		Given("user has the website access {string} on {string}", (String strUrl, String browserName) -> {
 			url = strUrl;
-			driver = browserObj.driverSetup("ie");
+			driver = browserObj.driverSetup(browserName);
 			seleniumPageObj = new SeleniumPage(driver);
 			registerUserPageObj = new RegisterUserPage(driver);
 		});
@@ -43,15 +49,21 @@ public class seleniumAssignmentStepDefinition implements En {
 
 		When("click on proceed button", () -> {
 			Thread.sleep(2000);
+			initialProductAmt = seleniumPageObj.initialProductAmount.getText();
+			System.out.println("Initial product amount: " + initialProductAmt);
 			browserObj.clickElement(driver, seleniumPageObj.proceedBtn);
+			browserObj.scrollToElement(driver, seleniumPageObj.summaryProductAmount);
+			summaryProductAmt = seleniumPageObj.summaryProductAmount.getText();
+			System.out.println("Summary page product amount: " + summaryProductAmt);
 		});
 
 		When("compare summary amount with initial amount", () -> {
-			browserObj.scrollToElement(driver, seleniumPageObj.proceedToCheckoutBtn);
-			browserObj.clickElement(driver, seleniumPageObj.proceedToCheckoutBtn);
+			assertEquals(initialProductAmt, summaryProductAmt);
 		});
 
 		When("register the account", () -> {
+			browserObj.scrollToElement(driver, seleniumPageObj.proceedToCheckoutBtn);
+			browserObj.clickElement(driver, seleniumPageObj.proceedToCheckoutBtn);
 			registerUserPageObj.registerUser(driver);
 		});
 
@@ -60,11 +72,19 @@ public class seleniumAssignmentStepDefinition implements En {
 		});
 
 		Then("user validates the product is purchased successfully", () -> {
-			
+			orderSuccessMsg = seleniumPageObj.orderSuccessfulMsg.getText();
+			System.out.println("orderSuccessMsg: " + orderSuccessMsg);
+			assertEquals("Your order on My Store is complete.", orderSuccessMsg);
 		});
 
-		Then("user validates the proudct amount", () -> {
-			
+		Then("user validates the product amount", () -> {
+			finalOrderAmt = seleniumPageObj.finalOrderAmount.getText();
+			System.out.println("Final order product amount: " + finalOrderAmt);
+			assertEquals(initialProductAmt, finalOrderAmt);
+		});
+
+		Then("user closes the website", () -> {
+			browserObj.quitDriver(driver);
 		});
 	}
 }

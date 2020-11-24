@@ -43,7 +43,6 @@ public class RestUtil {
 	public String getStringReponseFromReponse(String responseBody, String jsonStrPath) {
 		JsonPath jsonPath = new JsonPath(responseBody);
 		String id = jsonPath.getString(jsonStrPath);
-		System.out.println("Message value: " + id);
 		return id;
 	}
 	
@@ -51,7 +50,6 @@ public class RestUtil {
 		List<String> jsonResponse = new ArrayList<String>();
 		JsonPath jsonPath = new JsonPath(responseBody);
 		jsonResponse = jsonPath.getList(jsonStrPath);
-		System.out.println("jsonResponse value: " + jsonResponse);
 		return jsonResponse;
 	}
 	

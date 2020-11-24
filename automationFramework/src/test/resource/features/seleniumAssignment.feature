@@ -1,7 +1,7 @@
-Feature: Validate Rest Api 
+Feature: Validate the purchase functionality on online shopping website
 
-Scenario: Verify the create new employee record functionality of Rest API 
-	Given user has the website access "http://automationpractice.com/index.php"
+Scenario Outline: Verify that user is able to purchase product successfully 
+	Given user has the website access "http://automationpractice.com/index.php" on '<browsername>'
 	When user navigate to website
 	And search any product
 	And select the second entry
@@ -11,4 +11,9 @@ Scenario: Verify the create new employee record functionality of Rest API
 	And register the account
 	And purchase the product 
 	Then user validates the product is purchased successfully 
-	And user validates the proudct amount
+	And user validates the product amount
+	And user closes the website
+	Examples:
+	|browsername|
+	|ie|
+	|chrome|

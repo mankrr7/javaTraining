@@ -22,17 +22,20 @@ public class SeleniumPage {
 	@FindBy(id="add_to_cart")
 	public WebElement addToCart;
 	
-	@FindBy(id="our_price_display")
-	public WebElement initProductAmount;
+	@FindBy(css ="span[class='ajax_block_cart_total']")
+	public WebElement initialProductAmount;
 	
 	@FindBy(id="layer_cart_product_price")
 	public WebElement productAmtOnSummaryPage;
 	
-	@FindBy(css="clearfix")
-	public WebElement popupCheckout;
+//	@FindBy(css="clearfix")
+//	public WebElement popupCheckout;
 	
 	@FindBy(css=".btn.btn-default.button.button-medium > span")
 	public WebElement proceedBtn;
+	
+	@FindBy(id ="total_price")
+	public WebElement summaryProductAmount;
 	
 	@FindBy(css=".button.btn.btn-default.standard-checkout.button-medium > span")
 	public WebElement proceedToCheckoutBtn;
@@ -51,6 +54,12 @@ public class SeleniumPage {
 	
 	@FindBy(css ="button[class='button btn btn-default button-medium']")
 	public WebElement confirmOrderBtn;
+	
+	@FindBy(css ="span[class='price']>strong")
+	public WebElement finalOrderAmount;
+	
+	@FindBy(css =".alert.alert-success")
+	public WebElement orderSuccessfulMsg;
 	
 	BrowserSetup browserObj = new BrowserSetup();
 	

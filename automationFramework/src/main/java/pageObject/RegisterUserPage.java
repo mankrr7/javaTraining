@@ -51,11 +51,10 @@ public class RegisterUserPage {
 	
 	BrowserSetup browserObj = new BrowserSetup();
 	
-	public void registerUser(WebDriver driver) {
+	public RegisterUserPage registerUser(WebDriver driver) {
 		LocalDateTime myDateObj = LocalDateTime.now();
 	    DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("hhmmss");
 	    String formattedDate = myDateObj.format(myFormatObj);
-	    System.out.println("After formatting: " + formattedDate);
 	    browserObj.enterText(driver, this.emailId, "abc"+formattedDate+"@gmail.com");
 	    browserObj.scrollToElement(driver, this.createAccountBtn);
 	    browserObj.clickElement(driver, this.createAccountBtn);
@@ -77,6 +76,7 @@ public class RegisterUserPage {
 		browserObj.enterText(driver, this.phoneNumber, "9999999999");
 		browserObj.scrollToElement(driver, this.registerBtn);
 		browserObj.clickElement(driver, this.registerBtn);
+		return new RegisterUserPage(driver);
 	}
 	
 	public RegisterUserPage(WebDriver driver) {

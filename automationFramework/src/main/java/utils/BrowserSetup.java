@@ -13,13 +13,13 @@ public class BrowserSetup {
 	WebDriver driver;
 
 	public WebDriver driverSetup(String browser) {
-		if (browser == "chrome") {
+		if (browser.equals("chrome")) {
 			String driverPath = System.getProperty("user.dir") + File.separator
 					+ "src\\test\\resource\\drivers\\chromedriver.exe";
 			System.setProperty("webdriver.chrome.driver", driverPath);
 			driver = new ChromeDriver();
 		}
-		if (browser == "ie") {
+		else if (browser.equals("ie")) {
 			String driverPath = System.getProperty("user.dir") + File.separator
 					+ "src\\test\\resource\\drivers\\msedgedriver.exe";
 			System. setProperty("webdriver.edge.driver", driverPath);
