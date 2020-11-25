@@ -9,7 +9,7 @@ import pageObject.RegisterUserPage;
 import pageObject.SeleniumPage;
 import utils.BrowserSetup;
 
-public class seleniumAssignmentStepDefinition implements En {
+public class SeleniumAssignmentStepDefinition implements En {
 
 	String url;
 	WebDriver driver = null;
@@ -21,7 +21,7 @@ public class seleniumAssignmentStepDefinition implements En {
 	String finalOrderAmt = "";
 	String orderSuccessMsg = "";
 
-	public seleniumAssignmentStepDefinition() {
+	public SeleniumAssignmentStepDefinition() {
 
 		Given("user has the website access {string} on {string}", (String strUrl, String browserName) -> {
 			url = strUrl;

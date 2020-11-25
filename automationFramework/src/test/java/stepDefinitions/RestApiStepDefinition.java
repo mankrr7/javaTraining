@@ -17,7 +17,7 @@ import utils.PropertyUtil;
 import utils.RestUtil;
 import utils.Util;
 
-public class restApiStepDefinition implements En
+public class RestApiStepDefinition implements En
 {
 	RestUtil restUtil = new RestUtil();
 	PropertyUtil prop = new PropertyUtil();
@@ -26,7 +26,7 @@ public class restApiStepDefinition implements En
 	String responseBody = null;
 	String propertyPath = System.getProperty("user.dir") + File.separator + "src\\test\\resource\\config.properties";
 	
-	public restApiStepDefinition() {
+	public RestApiStepDefinition() {
 
 		Given("user has the api {string}", (String basePath) -> {
 			property = prop.getPropertyFileLoad(propertyPath);
