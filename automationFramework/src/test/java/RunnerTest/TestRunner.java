@@ -10,6 +10,6 @@ import io.cucumber.junit.CucumberOptions;
 glue = { "stepDefinitions" }, 
 monochrome = true)
 
-public class Runner {
+public class TestRunner {
 	
 }
